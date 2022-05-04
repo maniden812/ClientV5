@@ -93,7 +93,7 @@ const Order = () => {
     return (
         <body>
             
-            <form className={styles.center} onSubmit={handleSubmit(onSubmit)}>
+            <form className={styles.center} onSubmit={handleSubmit}>
             
                 <div>
                     
