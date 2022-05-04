@@ -8,6 +8,7 @@ export const usersRepo = {
     getById: id => users.find(x => x.id.toString() === id.toString()),
     find: x => users.find(x),
     create,
+    sale,
     update,
     delete: _delete
 };
@@ -24,7 +25,15 @@ function create(user) {
     users.push(user);
     saveData();
 }
+function sale(id, params) {
+    const user = users.find(x => x.id.toString() === id.toString());
+    // set sale data into db 
+    user.sale = user.sale.append(params);
+    user.dateUpdated = new Date().toISOString();
 
+    users.sale.push(user, params);
+    saveData();
+}
 function update(id, params) {
     const user = users.find(x => x.id.toString() === id.toString());
 
