@@ -1,13 +1,14 @@
-const fs = require('fs');
+// const fs = require('fs');
 
 // users in JSON file for simplicity, store in a db for production applications
-let users = require('data/users.json');
+let users = require('../../data/users.json');
 
 export const usersRepo = {
     getAll: () => users,
     getById: id => users.find(x => x.id.toString() === id.toString()),
     find: x => users.find(x),
     create,
+    sale,
     update,
     delete: _delete
 };
@@ -24,7 +25,15 @@ function create(user) {
     users.push(user);
     saveData();
 }
+function sale(id, params) {
+    const user = users.find(x => x.id.toString() === id.toString());
+    // set sale data into db 
+    user.sale = user.sale.append(params);
+    user.dateUpdated = new Date().toISOString();
 
+    users.sale.push(user, params);
+    saveData();
+}
 function update(id, params) {
     const user = users.find(x => x.id.toString() === id.toString());
 
@@ -41,7 +50,7 @@ function _delete(id) {
     // filter out deleted user and save
     users = users.filter(x => x.id.toString() !== id.toString());
     saveData();
-    
+
 }
 
 // private helper functions

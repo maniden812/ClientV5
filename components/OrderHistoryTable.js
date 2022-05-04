@@ -1,28 +1,58 @@
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import React from 'react';
 import styles from "./OrderHistoryTable.module.css"
-
-
-function OrderHistoryTable(props){
+import { configure } from 'enzyme';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+// import usersRepo from "../helpers/api/users-repo"
+configure({ adapter: new Adapter() });
+function OrderHistoryTable({sale}){
+    
+    const columns = [
+      { label: "Gallons", key: "gallons", align: "center", padding: "10px" },
+      { label: "State", key: "state", align: "center", padding: "10px" },
+    //   { label: "Date", key: "deliveryDate", align: "center", padding: "10px" },
+      { label: "Suggested Price($) per Gallon", key: "price", align: "center", padding: "10px" },
+      { label: "Total($)", key: "total", align: "center", padding: "10px" },
+    ];
+    const formatDate = (t) => {
+      let d = new Date(parseInt(t));
+      return d.toDateString();
+    }
+            
     return(
             <table className={styles.allofit}>
                 <thead className={styles.headings}>
-                    <tr>
-                        <th className={styles.titles}>Name</th>
-                        <th className={styles.titles}>Address</th>
-                        <th className={styles.titles}>Gallons</th>
-                        <th className={styles.titles}>Date</th>
-                        <th className={styles.titles}>Total</th>
-                        
+                    <tr className={styles.titles}>
+                    {columns.map((column) => (
+                      <th key={column.key} align={column.align}>
+                        {column.label}
+                      </th>
+                    ))}
                     </tr>
                 </thead>
-                <tbody>
-                    <td className={styles.data}>{props.name}</td>
-                    <td className={styles.data}>{props.address}</td>
-                    <td className={styles.data}>{props.gallons}</td>
-                    <td className={styles.data}>{props.deliveryDate}</td>
-                    <td className={styles.data}>{props.total}</td>
-                </tbody>
+                
+                <tbody className={styles.data}>
+                    {sale.map((data, index) => (
+                      <tr key={index}>
+                        <th>
+                          {data.gallons}
+                        </th>
+                        <th>
+                          {data.state}
+                        </th>
+                        {/* <th>
+                          {formatDate(data.date)}
+                        </th> */}
+                        <th>
+                          {data.price}
+                        </th>
+                        <th>
+                          {parseFloat(data.price * data.gallons).toFixed(2)}
+                        </th>
+                      </tr>
+                    ))}
+                  </tbody>
+                
             </table>
 
     )
