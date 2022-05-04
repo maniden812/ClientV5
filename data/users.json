@@ -1,0 +1,20 @@
+[
+    {
+        "firstName": "Kevin",
+        "lastName": "Flores",
+        "username": "test",
+        "hash": "$2a$10$B5p60BcXHTauB3t24b7/SeqVPz9etsFosPWmWzU8u8gG4JRvTCtdm",
+        "id": 1,
+        "dateCreated": "2022-05-04T14:24:02.717Z",
+        "dateUpdated": "2022-05-04T14:24:02.717Z"
+    },
+    {
+        "firstName": "chetoo",
+        "lastName": "chetooooo",
+        "username": "fuck this",
+        "hash": "$2a$10$nUgZPZ5dkm9LNeR283cet.rTvUaUDJnrW7ZsNYE2gE5K59ME20s2O",
+        "id": 2,
+        "dateCreated": "2022-05-04T15:41:35.209Z",
+        "dateUpdated": "2022-05-04T15:41:35.209Z"
+    }
+]

@@ -1,0 +1,16 @@
+h1.bigtext {
+    font-family: 'Courier New', Courier, monospace;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 90px;
+    margin-left: 100px;
+}
+
+h1.smalltext {
+    font-family: 'Courier New', Courier, monospace;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
