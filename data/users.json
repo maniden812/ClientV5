@@ -16,5 +16,12 @@
         "id": 2,
         "dateCreated": "2022-05-04T15:41:35.209Z",
         "dateUpdated": "2022-05-04T15:41:35.209Z"
+    },
+    {
+        "username": "Admin",
+        "hash": "$2a$10$ZMQmd06fCykZEsJvMTYFsuD6qxR5zuY3Ys.Wiur8Sj7Y5c4698icS",
+        "id": 3,
+        "dateCreated": "2022-05-04T16:43:06.201Z",
+        "dateUpdated": "2022-05-04T16:43:06.201Z"
     }
 ]

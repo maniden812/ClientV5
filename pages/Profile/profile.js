@@ -8,12 +8,6 @@ import axios from "axios";
 
 // Enzyme.configure({ adapter: new Adapter() });
 const Profile =()=> {
-    // const [fullname, setFullname]= useState('')
-    // const [address1, setaddress1]= useState('')
-    // const [address2, setaddress2]= useState('')
-    // const [city, setCity]= useState('')
-    // const [state, setstate]=useState('')
-    // const [zipcode, setzipcode]= useState('')
 
     const [client, setClient] = useState({
         fullname: "",
