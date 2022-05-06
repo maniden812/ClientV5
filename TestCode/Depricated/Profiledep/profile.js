@@ -1,38 +1,57 @@
-import React, { Component , useState} from 'react'
+import React, { useState, useEffect} from 'react'
 import moment from 'moment';
 import styles from './profile.module.css'
-
 import { userService, alertService } from '../../services';
-import {usersRepo } from '../../helpers/api/users-repo';
 
 
 const Profile =()=> {
 
-    const [client, setClient] = useState({
-        username: "",
-        hash: "",
-        id: "", //change based on import 
-        dateCreated: "",
-        dateUpdated: "",
-        fullname: "",
-        address1: "",
-        address2: "",
-        city: "",
-        state: "",
-        zipcode: "",
-        sale: "",
-    });
+    useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+        setUser(user);
+    }
+    }, []);
 
-    const handleChange = (e) => {
-        setClient({
-          ...client,
-          [e.target.name]: e.target.value,
-        });
-    };
+    const [user, setUser] = useState([]);
+    const [fullname, setFullname] = useState('');
+    const [id] = useState(user.id);
+    const [address1, setAddress1] = useState('');
+    const [address2, setAddress2] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zip, setZip] = useState('');
 
-    const clientID = usersRepo.getById(client.id);//pass param
-    function onSubmit({clientID, client }) {//based on paraemters of profile 
-        return userService.update(clientID, client)
+    const handle = () => {
+        user.fullname = fullname;
+        console.log(user.fullname);
+        user.address1 = address1;
+        user.address2 = address2;
+        user.city = city;
+        user.state = state;
+        user.zip = zip;
+        updateafterhandle(id,fullname, address1, address2, city, state, zip);
+        // return userService.update(id, fullname)
+        // .then(() => {   
+        //     //get return url from query parameters or default to '/'
+        //     const returnUrl = router.query.returnUrl || '/';
+        //     router.push(returnUrl);
+        // }).catch(alertService.error);
+        // // userService.update(id, address1);
+        // // userService.update(id, address2);
+        // // userService.update(id, city);
+        // // userService.update(id, state);
+        // // userService.update(id, zip);
+     };
+
+
+    // const handleChange = (e) => {
+    //     setClient({...client,[e.target.name]: e.target.value,
+    //     });
+    // };
+
+    function updateafterhandle({id , fullname }) {//based on paraemters of profile 
+        return userService.update(id, fullname)
             .then(() => {
                 // get return url from query parameters or default to '/'
                 const returnUrl = router.query.returnUrl || '/';
@@ -47,16 +66,19 @@ const Profile =()=> {
         <body>
             {/* <ProfileNav/> */}
                 
-            <form className = { styles.center } onSubmit = {(onSubmit)} >
+            <form className = { styles.center } onSubmit = {(handle)} >
                 <div> { /* type in full name */ } 
                     <label > Full Name </label>  
                     <br/>
                     <input type = 'text' 
                     id ='fl'
                     name="fullname"
-                    maxlength = '50' 
+                    maxLength = '50' 
                     required
-                    onChange={handleChange}/> 
+                    value={fullname}
+                    onChange={(e) => setFullname(e.target.value)}
+                    // onChange={handleChange}
+                    /> 
                     <br/>
                     <br/>
 
@@ -67,8 +89,11 @@ const Profile =()=> {
                     name="address1"
                     id ='a1'
                     required
-                    maxlength = '100' 
-                    onChange={handleChange}/> 
+                    maxLength = '100' 
+                    value={address1}
+                    onChange={(e) => setAddress1(e.target.value)}
+                    // onChange={handleChange}
+                    /> 
                     <br/>
                     <br/>
 
@@ -78,8 +103,11 @@ const Profile =()=> {
                     <input type = 'text' 
                     name="address2"
                     id ='a2'
-                    maxlength = '100' 
-                    onChange={handleChange}/> 
+                    maxLength = '100' 
+                    value={address2}
+                    onChange={(e) => setAddress2(e.target.value)}
+                    // onChange={handleChange}
+                    /> 
                     <br/>
                     <br/>
 
@@ -90,15 +118,18 @@ const Profile =()=> {
                     name="city"
                     id ='city'
                     required
-                    maxlength = '100' 
-                    onChange={handleChange}/> 
+                    maxLength = '100' 
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    // onChange={handleChange}
+                    /> 
                     <br/>
                     <br/>
 
                     { /* select state */ } 
                     <label> Select State </label> 
                     {/* value = { topic } */}
-                    <select name="state" required id ='st' onChange={handleChange} >
+                    <select name="state" required id ='st'  value={state} onChange={(e) => setState(e.target.value)} >
 
                     <option value = "AL" > AL </option> 
                     <option value = "AK" > AK </option> 
@@ -162,9 +193,12 @@ const Profile =()=> {
                     name="zipcode"
                     id ='zip'
                     required
-                    maxlength = '9' 
-                    minlength = '5' 
-                    onChange={handleChange}/> 
+                    maxLength = '9' 
+                    minLength = '5' 
+                    value={zip}
+                    onChange={(e) => setZip(e.target.value)}
+                    // onChange={handleChange}
+                    /> 
                     <br/>
                     <br/>
 

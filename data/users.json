@@ -1,28 +1,9 @@
 [
     {
-        "firstName": "Kevin",
-        "lastName": "Flores",
-        "username": "test",
-        "hash": "$2a$10$B5p60BcXHTauB3t24b7/SeqVPz9etsFosPWmWzU8u8gG4JRvTCtdm",
+        "username": "kevoo",
+        "hash": "$2a$10$XfLZEiDZbiGWQD44cW8gZOqNJo6pwsWu74mDhYc9KDpUdX/AXY6/6",
         "id": 1,
-        "dateCreated": "2022-05-04T14:24:02.717Z",
-        "dateUpdated": "2022-05-04T14:24:02.717Z"
-    },
-    {
-        "firstName": "chetoo",
-        "lastName": "chetooooo",
-        "username": "fuck this",
-        "hash": "$2a$10$nUgZPZ5dkm9LNeR283cet.rTvUaUDJnrW7ZsNYE2gE5K59ME20s2O",
-        "id": 2,
-        "dateCreated": "2022-05-04T15:41:35.209Z",
-        "dateUpdated": "2022-05-04T15:41:35.209Z"
-    },
-    {
-        "username": "Admin",
-        "hash": "$2a$10$VDpWvnP9gS1HcgW9hbl8WOtlSfgS4vsJiNed8Xyt7McDoq8PCgvna",
-        "id": 3,
-        "dateCreated": "2022-05-04T16:39:56.428Z",
-        "dateUpdated": "2022-05-04T16:39:56.428Z"
-
+        "dateCreated": "2022-05-06T19:50:20.257Z",
+        "dateUpdated": "2022-05-06T19:50:20.257Z"
     }
 ]

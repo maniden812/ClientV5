@@ -1,3 +1,5 @@
+
+
 // const fs = require('fs');
 
 // users in JSON file for simplicity, store in a db for production applications
@@ -42,6 +44,7 @@ function update(id, params) {
 
     // update and save
     Object.assign(user, params);
+
     saveData();
 }
 
