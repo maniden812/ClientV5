@@ -15,12 +15,25 @@ function AddEdit(props) {
     
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        firstName: Yup.string()
-            .required('First Name is required'),
-        lastName: Yup.string()
-            .required('Last Name is required'),
+        fullname: Yup.string()
+            .required('Full name is required')
+            .max(50, 'Full Name must be a maximum of 50 characters'),
         username: Yup.string()
             .required('Username is required'),
+        Address1: Yup.string()
+            .required('Address1 is required')
+            .max(100, 'Address 1 must be a maximum of 50 characters'),
+        Address2: Yup.string()
+            .max(100, 'Address 2 must be a maximum of 50 characters'),
+        City: Yup.string()
+            .required('City is required')
+            .max(100, 'City must be a maximum of 50 characters'),
+        State: Yup.string()
+            .required('State is required'),
+        Zip: Yup.string()
+            .required('Zip is required')
+            .min(5, 'Zipcode mus be at least 5 characters')
+            .max(9, 'Zipcode must be a maximum of 50 characters'),
         password: Yup.string()
             .transform(x => x === '' ? undefined : x)
             .concat(isAddMode ? Yup.string().required('Password is required') : null)
@@ -65,21 +78,16 @@ function AddEdit(props) {
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-row">
                 <div className="form-group col">
-                    <label>First Name</label>
-                    <input name="firstName" type="text" {...register('firstName')} className={`form-control ${errors.firstName ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.firstName?.message}</div>
-                </div>
-                <div className="form-group col">
-                    <label>Last Name</label>
-                    <input name="lastName" type="text" {...register('lastName')} className={`form-control ${errors.lastName ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.lastName?.message}</div>
+                    <label>Full Name</label>
+                    <input name="fullname" type="text" {...register('fullname')} className={`form-control ${errors.fullname ? 'is-invalid' : ''}`} />
+                    <div className="invalid-feedback">{errors.fullname?.message}</div>
                 </div>
             </div>
             <div className="form-row">
                 <div className="form-group col">
                     <label>Username</label>
                     <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.email?.message}</div>
+                    <div className="invalid-feedback">{errors.username?.message}</div>
                 </div>
                 <div className="form-group col">
                     <label>
@@ -88,6 +96,88 @@ function AddEdit(props) {
                     </label>
                     <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
                     <div className="invalid-feedback">{errors.password?.message}</div>
+                </div>
+            </div>
+            <div className="form-row"> 
+                <div className="form-group col">
+                    <label>Address1</label>
+                    <input name="Address1" type="text" {...register('Address1')} className={`form-control ${errors.Address1 ? 'is-invalid' : ''}`} />
+                    <div className="invalid-feedback">{errors.Address1?.message}</div>
+                </div>
+                <div className="form-group col">
+                    <label>Address2</label>
+                    <input name="Address2" type="text" {...register('Address2')} className={`form-control ${errors.Address2 ? 'is-invalid' : ''}`} />
+                    <div className="invalid-feedback">{errors.Address2?.message}</div>
+                </div>
+            </div>
+            <div className="form-row"> 
+                <div className="form-group col">
+                    <label>City</label>
+                    <input name="City" type="text" {...register('City')} className={`form-control ${errors.City ? 'is-invalid' : ''}`} />
+                    <div className="invalid-feedback">{errors.City?.message}</div>
+                </div>
+                <div className="form-group col">
+                    <label>State</label>
+                    <select name="State" type="text" {...register('State')} className={`form-control ${errors.State ? 'is-invalid' : ''}`} >
+                    <option value = "AL" > AL </option> 
+                     <option value = "AK" > AK </option> 
+                     <option value = "AZ" > AZ </option> 
+                     <option value = "AR" > AR </option> 
+                     <option value = "CA" > CA </option> 
+                     <option value = "CO" > CO </option> 
+                     <option value = "CT" > CT </option> 
+                     <option value = "DE" > DE </option> 
+                     <option value = "DC" > DC </option> 
+                     <option value = "FL" > FL </option> 
+                     <option value = "GA" > GA </option> 
+                     <option value = "HI" > HI </option> 
+                     <option value = "ID" > ID </option> 
+                     <option value = "IL" > IL </option> 
+                     <option value = "IN" > IN </option> 
+                     <option value = "IA" > IA </option> 
+                     <option value = "KS" > KS </option> 
+                     <option value = "KY" > KY </option> 
+                     <option value = "LA" > LA </option> 
+                     <option value = "ME" > ME </option> 
+                     <option value = "MD" > MD </option> 
+                     <option value = "MA" > MA </option> 
+                     <option value = "MI" > MI </option> 
+                     <option value = "MN" > MN </option> 
+                     <option value = "MS" > MS </option> 
+                     <option value = "MO" > MO </option> 
+                     <option value = "MT" > MT </option> 
+                     <option value = "NE" > NE </option> 
+                     <option value = "NV" > NV </option> 
+                     <option value = "NH" > NH </option> 
+                     <option value = "NJ" > NJ </option> 
+                     <option value = "NM" > NM </option> 
+                     <option value = "NY" > NY </option> 
+                     <option value = "NC" > NC </option> 
+                     <option value = "ND" > ND </option> 
+                     <option value = "OH" > OH </option> 
+                     <option value = "OK" > OK </option> 
+                     <option value = "OR" > OR </option> 
+                     <option value = "PA" > PA </option> 
+                     <option value = "RI" > RI </option> 
+                     <option value = "SC" > SC </option> 
+                     <option value = "SD" > SD </option> 
+                     <option value = "TN" > TN </option> 
+                     <option value = "TX" > TX </option> 
+                     <option value = "UT" > UT </option> 
+                     <option value = "VT" > VT </option> 
+                     <option value = "VA" > VA </option> 
+                     <option value = "WA" > WA </option> 
+                     <option value = "WV" > WV </option> 
+                     <option value = "WI" > WI </option> 
+                     <option value = "WY" > WY </option> 
+                    </select>
+                     
+                    <div className="invalid-feedback">{errors.State?.message}</div>
+                </div>
+                <div className="form-group col">
+                    <label>Zipcode</label>
+                    <input name="Zip" type="text" {...register('Zip')} className={`form-control ${errors.Zip ? 'is-invalid' : ''}`} />
+                    <div className="invalid-feedback">{errors.Zip?.message}</div>
                 </div>
             </div>
             <div className="form-group">

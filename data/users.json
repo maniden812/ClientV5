@@ -1,28 +1,15 @@
 [
     {
-        "firstName": "Kevin",
-        "lastName": "Flores",
-        "username": "test",
-        "hash": "$2a$10$B5p60BcXHTauB3t24b7/SeqVPz9etsFosPWmWzU8u8gG4JRvTCtdm",
+        "username": "Chetana",
+        "hash": "$2a$10$7GmdjTRpeSWW6phJU6tZVes9s2HuzpAWA16NVgX9v4lzslb/91LoS",
         "id": 1,
-        "dateCreated": "2022-05-04T14:24:02.717Z",
-        "dateUpdated": "2022-05-04T14:24:02.717Z"
-    },
-    {
-        "firstName": "chetoo",
-        "lastName": "chetooooo",
-        "username": "fuck this",
-        "hash": "$2a$10$nUgZPZ5dkm9LNeR283cet.rTvUaUDJnrW7ZsNYE2gE5K59ME20s2O",
-        "id": 2,
-        "dateCreated": "2022-05-04T15:41:35.209Z",
-        "dateUpdated": "2022-05-04T15:41:35.209Z"
-    },
-    {
-        "username": "Admin",
-        "hash": "$2a$10$VDpWvnP9gS1HcgW9hbl8WOtlSfgS4vsJiNed8Xyt7McDoq8PCgvna",
-        "id": 3,
-        "dateCreated": "2022-05-04T16:39:56.428Z",
-        "dateUpdated": "2022-05-04T16:39:56.428Z"
-
+        "dateCreated": "2022-05-06T20:03:30.915Z",
+        "dateUpdated": "2022-05-06T20:03:30.915Z",
+        "fullname": "Chetana Pitani",
+        "Address1": "5673 ATM Rd",
+        "Address2": "",
+        "City": "Austin",
+        "State": "TX",
+        "Zip": "77904"
     }
 ]
