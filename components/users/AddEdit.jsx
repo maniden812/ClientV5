@@ -16,19 +16,24 @@ function AddEdit(props) {
     // form validation rules 
     const validationSchema = Yup.object().shape({
         fullname: Yup.string()
-            .required('Full name is required'),
+            .required('Full name is required')
+            .max(50, 'Full Name must be a maximum of 50 characters'),
         username: Yup.string()
             .required('Username is required'),
         Address1: Yup.string()
-            .required('Address1 is required'),
+            .required('Address1 is required')
+            .max(100, 'Address 1 must be a maximum of 50 characters'),
         Address2: Yup.string()
-            .required('Address2 is required'),
+            .max(100, 'Address 2 must be a maximum of 50 characters'),
         City: Yup.string()
-            .required('City is required'),
+            .required('City is required')
+            .max(100, 'City must be a maximum of 50 characters'),
         State: Yup.string()
             .required('State is required'),
         Zip: Yup.string()
-            .required('Zip is required'),
+            .required('Zip is required')
+            .min(5, 'Zipcode mus be at least 5 characters')
+            .max(9, 'Zipcode must be a maximum of 50 characters'),
         password: Yup.string()
             .transform(x => x === '' ? undefined : x)
             .concat(isAddMode ? Yup.string().required('Password is required') : null)
@@ -113,7 +118,60 @@ function AddEdit(props) {
                 </div>
                 <div className="form-group col">
                     <label>State</label>
-                    <input name="State" type="text" {...register('State')} className={`form-control ${errors.State ? 'is-invalid' : ''}`} />
+                    <select name="State" type="text" {...register('State')} className={`form-control ${errors.State ? 'is-invalid' : ''}`} >
+                    <option value = "AL" > AL </option> 
+                     <option value = "AK" > AK </option> 
+                     <option value = "AZ" > AZ </option> 
+                     <option value = "AR" > AR </option> 
+                     <option value = "CA" > CA </option> 
+                     <option value = "CO" > CO </option> 
+                     <option value = "CT" > CT </option> 
+                     <option value = "DE" > DE </option> 
+                     <option value = "DC" > DC </option> 
+                     <option value = "FL" > FL </option> 
+                     <option value = "GA" > GA </option> 
+                     <option value = "HI" > HI </option> 
+                     <option value = "ID" > ID </option> 
+                     <option value = "IL" > IL </option> 
+                     <option value = "IN" > IN </option> 
+                     <option value = "IA" > IA </option> 
+                     <option value = "KS" > KS </option> 
+                     <option value = "KY" > KY </option> 
+                     <option value = "LA" > LA </option> 
+                     <option value = "ME" > ME </option> 
+                     <option value = "MD" > MD </option> 
+                     <option value = "MA" > MA </option> 
+                     <option value = "MI" > MI </option> 
+                     <option value = "MN" > MN </option> 
+                     <option value = "MS" > MS </option> 
+                     <option value = "MO" > MO </option> 
+                     <option value = "MT" > MT </option> 
+                     <option value = "NE" > NE </option> 
+                     <option value = "NV" > NV </option> 
+                     <option value = "NH" > NH </option> 
+                     <option value = "NJ" > NJ </option> 
+                     <option value = "NM" > NM </option> 
+                     <option value = "NY" > NY </option> 
+                     <option value = "NC" > NC </option> 
+                     <option value = "ND" > ND </option> 
+                     <option value = "OH" > OH </option> 
+                     <option value = "OK" > OK </option> 
+                     <option value = "OR" > OR </option> 
+                     <option value = "PA" > PA </option> 
+                     <option value = "RI" > RI </option> 
+                     <option value = "SC" > SC </option> 
+                     <option value = "SD" > SD </option> 
+                     <option value = "TN" > TN </option> 
+                     <option value = "TX" > TX </option> 
+                     <option value = "UT" > UT </option> 
+                     <option value = "VT" > VT </option> 
+                     <option value = "VA" > VA </option> 
+                     <option value = "WA" > WA </option> 
+                     <option value = "WV" > WV </option> 
+                     <option value = "WI" > WI </option> 
+                     <option value = "WY" > WY </option> 
+                    </select>
+                     
                     <div className="invalid-feedback">{errors.State?.message}</div>
                 </div>
                 <div className="form-group col">
