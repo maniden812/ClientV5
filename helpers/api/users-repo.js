@@ -10,7 +10,7 @@ export const usersRepo = {
     getById: id => users.find(x => x.id.toString() === id.toString()),
     find: x => users.find(x),
     create,
-    sale,
+    updatesales,
     update,
     delete: _delete
 };
@@ -18,6 +18,7 @@ export const usersRepo = {
 function create(user) {
     // generate new user id
     user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
+    user.sales =  [];
 
     // set date created and updated
     user.dateCreated = new Date().toISOString();
@@ -27,13 +28,13 @@ function create(user) {
     users.push(user);
     saveData();
 }
-function sale(id, params) {
+function updatesales(id, params) {
     const user = users.find(x => x.id.toString() === id.toString());
     // set sale data into db 
-    user.sale = user.sale.append(params);
+    user.sales.append(params);
     user.dateUpdated = new Date().toISOString();
 
-    users.sale.push(user, params);
+    users.sales.push(user, params);
     saveData();
 }
 function update(id, params) {

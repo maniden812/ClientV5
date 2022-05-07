@@ -9,15 +9,11 @@ import Router from 'next/router';
 export default Index;
 
 function Index() {
-    const [users, setUsers] = useState(null);
+    const [user] = useState(JSON.parse(localStorage.getItem('user')));
 
     function logout() {
         userService.logout();
     }
-
-    useEffect(() => {
-        userService.getAll().then(x => setUsers(x));
-    }, []);
 
     function deleteUser(id) {
         setUsers(users.map(x => {
@@ -50,7 +46,7 @@ function Index() {
                     </tr>
                 </thead>
                 <tbody>
-                    {users && users.map(user =>
+                    {
                         <tr key={user.id}>
                             <td>{user.username}</td>
                             <td>{user.fullname}</td>
@@ -62,25 +58,18 @@ function Index() {
                             <td style={{ whiteSpace: 'nowrap' }}>
                                 <Link href={`/users/edit/${user.id}`} className="btn btn-sm btn-primary mr-1">Edit</Link>
                                 <button onClick={() => deleteUser(user.id)} className="btn btn-sm btn-danger btn-delete-user" disabled={user.isDeleting}>
-                                    {user.isDeleting 
+                                    {user.isDeleting
                                         ? <span className="spinner-border spinner-border-sm"></span>
                                         : <span>Delete</span>
                                     }
                                 </button>
                             </td>
-                        </tr>
-                    )}
-                    {!users &&
+                        </tr> 
+                    }
+                    {!user &&
                         <tr>
                             <td colSpan="4">
                                 <Spinner />
-                            </td>
-                        </tr>
-                    }
-                    {users && !users.length &&
-                        <tr>
-                            <td colSpan="4" className="text-center">
-                                <div className="p-2">No Users To Display</div>
                             </td>
                         </tr>
                     }

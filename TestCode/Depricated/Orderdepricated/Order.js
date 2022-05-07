@@ -1,22 +1,11 @@
 import React, { Component , useEffect, useState} from 'react'
 
 import styles from './Order.module.css';
-// import { Nav } from '../../components/Nav';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import moment from 'moment'
-import { configure } from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import Pricing from "../api/pricingmodule"
-// import usersRepo from "../../helpers/api/users-repo"
-// import users from '../../data/users.json'
 import Hist from '../../components/OrderHistoryTable'
-import { userService } from 'services';
-import { usersRepo } from 'helpers/api/users-repo';
-
-configure({ adapter: new Adapter() });
 
 const Order = () => {
     const columns = [
@@ -30,15 +19,8 @@ const Order = () => {
         let d = new Date(parseInt(t));
         return d.toLocaleString();
       }
-    const [clientInfo,setClientInfo] = useState({
-        gallons: 0,
-        total: 0,
-        deliveryDate: new Date(),
-        price: 1.05,
-        state: "",
-        
-    });
-    const [sale, setSale]= useState([]);
+    // const [clientInfo,setClientInfo] = 
+    // const [sale, setSale]= useState([]);
         
     const handleChange = (e) => {
         const newInput = (data)=>({...data, [e.target.name]:e.target.value})
@@ -46,36 +28,8 @@ const Order = () => {
         
     };
    
-    // const router = useRouter();
-    // const validationSchema = Yup.object().shape({
-    //     gallons: Yup.string().required('Gallons is required'),
-    //     deliverDate: Yup.string().required('Delivery Date is required'),
-    //     state: Yup.string().required('Location is required')
-
-    // });
-    // const formOptions = { resolver: yupResolver(validationSchema) };
-    // // // get functions to build form with useForm() hook
-    // const { handleSubmit, formState } = useForm(formOptions);
-    // const { errors } = formState;
-    
-    // const user= useState();
-    // // useEffect(() =>{
-    // //     usersRepo.getById(user.id)
-    // // }, []);
-    // function onSubmit(clientInfo) {
-    //     preventDefault();
-    //     setSale((data)=>[...data,clientInfo])
-    //     return usersRepo.sale(user.id, sale)
-    //         .then(() => {
-    //             // get return url from query parameters or default to '/'
-    //             const returnUrl = router.query.returnUrl || '/';
-    //             router.push(returnUrl);
-    //         })
-    //         .catch(alertService.error);
-
-    // }
-    const handleSubmit=(event)=>{
-        event.preventDefault();
+    const handleSubmit=()=>{
+        
         const newData = (data)=>([...data, clientInfo])
         setSale(newData);
         const emptyInput= {gallons: 0,
@@ -93,7 +47,7 @@ const Order = () => {
     return (
         <body>
             
-            <form className={styles.center} onSubmit={handleSubmit(onSubmit)}>
+            <form className={styles.center} onSubmit={handleSubmit()}>
             
                 <div>
                     
