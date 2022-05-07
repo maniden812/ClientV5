@@ -22,18 +22,18 @@ function AddEdit(props) {
             .required('Username is required'),
         Address1: Yup.string()
             .required('Address1 is required')
-            .max(100, 'Address 1 must be a maximum of 50 characters'),
+            .max(100, 'Address 1 must be a maximum of 100 characters'),
         Address2: Yup.string()
-            .max(100, 'Address 2 must be a maximum of 50 characters'),
+            .max(100, 'Address 2 must be a maximum of 100 characters'),
         City: Yup.string()
             .required('City is required')
-            .max(100, 'City must be a maximum of 50 characters'),
+            .max(100, 'City must be a maximum of 100 characters'),
         State: Yup.string()
             .required('State is required'),
         Zip: Yup.string()
             .required('Zip is required')
-            .min(5, 'Zipcode mus be at least 5 characters')
-            .max(9, 'Zipcode must be a maximum of 50 characters'),
+            .min(5, 'Zipcode must be at least 5 characters')
+            .max(9, 'Zipcode must be a maximum of 9 characters'),
         password: Yup.string()
             .transform(x => x === '' ? undefined : x)
             .concat(isAddMode ? Yup.string().required('Password is required') : null)
