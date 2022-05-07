@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useState } from 'react';
-// import pricingmodule from 'pages/api/pricingmodule';
+import pricingmodule from 'pages/api/pricingmodule';
 
 import { Link } from 'components';
 import { userService, alertService } from 'services';
@@ -20,13 +20,13 @@ function PlaceOrder(props) {
     var yyyy = today.getFullYear();
 
     today = mm + '/' + dd + '/' + yyyy;
-    const [sale, setSale] = useState({
+    const [sentSale, setSale]= useState({
         Gallons: 0,
-        Total: 0,
         DeliveryDate: new Date(),
-        UnitPrice: 1.05,
-        State: ""
-    });
+        Margin: 0.00,
+        State: "",
+        Total: 0.00
+    })
 
     
     
@@ -47,16 +47,22 @@ function PlaceOrder(props) {
         formOptions.defaultValues = props.user;
     }
 
+
     // get functions to build form with useForm() hook
     const { register, handleSubmit, reset, formState } = useForm(formOptions);
     const { errors } = formState;
 
     function onSubmit(data) {
-        console.log(data);
-        sale = setSale(data);
-        makeSale(user.id, sale);
+        const info = pricingmodule(data);
+        setSale ({
+            Gallons: data.Gallons,
+            DeliveryDate: data.DeliveryDate,
+            Margin: info.margin,
+            State: data.Date,
+            Total: info.total
+        });
+        makeSale(user.id, sentSale);
     }
-
     function makeSale(id, saleobj) {
         return userService.updatesales(id, saleobj)
             .then(() => {
@@ -87,13 +93,13 @@ function PlaceOrder(props) {
             <div className="form-row">
                 
             </div>
-            <div className="form-row"> 
+            {/* <div className="form-row"> 
                 <div className="form-group col">
                     <label>Unit Price</label>
                     <input name="UnitPrice" type="text" readOnly value={sale.UnitPrice} className={`form-control ${errors.UnitPrice ? 'is-invalid' : ''}`} />
                     <div className="invalid-feedback">{errors.UnitPrice?.message}</div>
                 </div>
-            </div>
+            </div> */}
             <div className="form-row"> 
                 <div className="form-group col">
                     <label>State</label>
