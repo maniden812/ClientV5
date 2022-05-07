@@ -1,76 +1,122 @@
 // NOTE: jest-dom adds handy assertions to Jest and is recommended, but not required
-// import {render, fireEvent, screen} from '@testing-library/react'
-// import {render, fireEvent, screen} from '@testing-library/react';
-// import TestRenderer from 'react-test-renderer';
-// import { shallow } from 'enzyme';
-//const profilemodule = require('../pages/profile');
-// import {render, fireEvent} from '@testing-library/react'
-import React from 'react'
-const rtl = require('@testing-library/react')
+import React from 'react';
+import {render, screen} from '@testing-library/react';
 import AddEdit from '../components/users/AddEdit';
+import user from '@testing-library/react';
 
-test('renders form properly', () => {
-    const{getByTestId, getByLabelText} = rtl.render(<AddEdit/>);
-    const nameLabel = getByText(/FullName:/i)
-    const address1Label = getByText(/Address 1:/i)
-    const cityLabel = getByText(/City:/i)
-    const stateLabel = getByText(/State:/i)
-    const zipcodeLabel = getByText(/Zipcode:/i)
-    expect(nameLabel).toBeInDocument()
-    expect(address1Label).toBeInDocument()
-    expect(cityLabel).toBeInDocument()
-    expect(stateLabel).toBeInDocument()
-    expect(zipcodeLabel).toBeInDocument()
+describe('Profile Form', () => {
+    const onSubmit = jest.fn();
 
-    const fninput = getByLabelText(/FullName:/i);
-    expect(fninput).toHaveAttribute('type', 'text')
+    beforeEach(() => {
+        onSubmit.mockClear();
+        render(<AddEdit onSubmit={onSubmit} />);
+    });
 
-    const a1input = getByLabelText(/Address 1:/i);
-    expect(a1input).toHaveAttribute('type', 'text')
+    it('onSubmit is called when all fields pass validation', () => {
+        user.type(getFullName(), 'Chetana Pitani')
+        user.type(getAddress1(), '5673 ATM Rd');
+        user.type(getAddress2(), 'apt90');
+        user.type(getCity(), 'Austin');
+        selectState('TX');
+        user.type(getZipcode(), '77904');
 
-    const cinput = getByLabelText(/City:/i);
-    expect(cinput).toHaveAttribute('type', 'text')
+        clickSave();
 
-    const sinput = getByLabelText(/State:/i);
-    expect(sinput).toHaveAttribute('type', 'text')
+        await waitFor(() => {
+            expect(onSubmit).toHaveBeenCalledTimes({
+                fullname: 'Chetana Pitani',
+                address1: '5673 ATM Rd',
+                address2: 'apt90',
+                state: 'TX',
+                zipcode: '77904'
+            });
+        });
+    });
+    it('has required fields', async() => {
+        clickSave();
 
-    const zinput = getByLabelText(/Zipcode:/i);
-    expect(zinput).toHaveAttribute('type', 'number')
-})
-// test('button should be disabled for empty fullname', () => {
-//     const{getByLabelText, getByRole} = render(<AddEdit/>);
+        expect(getFullName()).toHaveErrorMessage('Full Name is required');
+        expect(getAddress1()).toHaveErrorMessage('Address1 is required');
+        expect(getCity()).toHaveErrorMessage('City is required');
+        expect(selectState()).toHaveErrorMessage('State is required');
+        expect(getZipcode()).toHaveErrorMessage('Zipcode is required');
+    });
+    describe('full name field', () => {
+        it('shows error when full name is more than 50 characters', () => {
+            user.type(getFullName(), 'chetanapitchetanapitchetanapitchetanapitchetanapitchetanapit')
 
-//     const fninput = getByLabelText(/FullName:/i)
-//     fireEvent.change(fninput, {'target': {'value': ''}})
-//     const button = getByRole('button', {'type': 'submit'})
-//     expect(button).toHaveAttribute('disabled');
-// })
+            await waitFor(() => {
+                expect(getFullName()).toHaveErrorMessage('Full Name must be a maximum of 50 characters')
+            })
+        })
+    });
+    describe('address1 field', () => {
+        it('shows error when address1 is more than 100 characters', () => {
+            user.type(getAddress1(), 'chetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapit')
 
+            await waitFor(() => {
+                expect(getAddress1()).toHaveErrorMessage('Address1 must be a maximum of 100 characters')
+            })
+        })
+    });
+    describe('address2 field', () => {
+        it('shows error when address2 is more than 100 characters', () => {
+            user.type(getAddress2(), 'chetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapit')
 
-// test('check if values are empty', () => {
-//     <Profile />
-//     // const instance = wrapper.instance();
-//     expect(true).toBe(true);
-//     const [fullname, address1, address2, city, state, zipcode] = Profile(fullname, address1, address2, city, state, zipcode);
+            await waitFor(() => {
+                expect(getAddress2()).toHaveErrorMessage('Address2 must be a maximum of 100 characters')
+            })
+        })
+    });
+    describe('city field', () => {
+        it('shows error when city is more than 100 characters', () => {
+            user.type(getCity(), 'chetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapitchetanapit')
 
-//     render(<Profile />);
+            await waitFor(() => {
+                expect(getCity()).toHaveErrorMessage('City must be a maximum of 100 characters')
+            })
+        })
+    });
+    describe('zipcode field', () => {
+        it('shows error when zipcode is less than 5 characters', () => {
+            user.type(getZipcode(), 'che')
 
-    
-//     expect(fullname).not.toBeNull();
-//     // creat object that mimics db and check if params are empty 
-//     expect(fullname).toBeLessThanOrEqual(50);
+            await waitFor(() => {
+                expect(getZipcode()).toHaveErrorMessage('Zipcode must be at least 5 characters')
+            })
+        });
+        it('shows error when zipcode is greater than 9 characters', () => {
+            user.type(getZipcode(), 'chetanapitani')
 
-//     expect(address1).not.toBeNull();
-//     expect(address1).toBeLessThanOrEqual(100);
+            await waitFor(() => {
+                expect(getZipcode()).toHaveErrorMessage('Zipcode must be a maximum of 9 characters')
+            })
+        });
+    });
 
-//     expect(address2).toBeLessThanOrEqual(100);
-
-//     expect(city).not.toBeNull();
-//     expect(city).toBeLessThanOrEqual(100);
-
-//     expect(state).not.toBeNull();
-
-//     expect(zipcode).not.toBeNull();
-//     expect(zipcode).toBeLessThanOrEqual(9);
-//     expect(zipcode).toBeGreaterThanOrEqual(5);
-// });
+});
+function clickSave() {
+    user.click(screen.getByRole('button', {name: /Save/i}));
+}
+function getFullName() {
+    return screen.getByRole('textbox', {name: /Full Name/i});
+}
+function getAddress1() {
+    return screen.getByRole('textbox', {name: /Address1/i});
+}
+function getAddress2() {
+    return screen.getByRole('textbox', {name: /Address2/i});
+}
+function getCity() {
+    return screen.getByRole('textbox', {name: /City/i});
+}
+function getCity() {
+    return screen.getByRole('textbox', {name: /City/i});
+}
+function selectState() {
+    const state = screen.getByRole('combobox', {name: /State/i})
+    user.selectOptions(state, within(state).getByRole('option', {name: 'TX'}));
+}
+function getZipcode() {
+    return screen.getByRole('textbox', {name: /Zipcode/i});
+}
