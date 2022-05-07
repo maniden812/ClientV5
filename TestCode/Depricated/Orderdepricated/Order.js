@@ -19,15 +19,8 @@ const Order = () => {
         let d = new Date(parseInt(t));
         return d.toLocaleString();
       }
-    const [clientInfo,setClientInfo] = useState({
-        gallons: 0,
-        total: 0,
-        deliveryDate: new Date(),
-        price: 1.05,
-        state: "",
-        
-    });
-    const [sale, setSale]= useState([]);
+    // const [clientInfo,setClientInfo] = 
+    // const [sale, setSale]= useState([]);
         
     const handleChange = (e) => {
         const newInput = (data)=>({...data, [e.target.name]:e.target.value})
