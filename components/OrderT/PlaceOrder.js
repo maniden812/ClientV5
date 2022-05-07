@@ -14,7 +14,13 @@ function PlaceOrder(props) {
     const user = props?.user;
     const isAddMode = !user;
     const router = useRouter();
-    const sale = useState({
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+    const [sale, setSale] = useState({
         Gallons: 0,
         Total: 0,
         DeliveryDate: new Date(),
@@ -26,12 +32,13 @@ function PlaceOrder(props) {
     
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        Gallons: Yup.string()
-            .required('Quantity is required') .max(50, 'Full Name must be a maximum of 50 characters'),
+        Gallons: Yup.number()
+            .required('Quantity is required') .min(50, 'Gallons cannot be less than 50'),
         State: Yup.string()
             .required('State is required'),
-        DeliveryDate: Yup.string()
-            .max(100, 'Address 2 must be a maximum of 50 characters'),
+        DeliveryDate: Yup.date()
+            .min(today)
+
     });
     const formOptions = { resolver: yupResolver(validationSchema) };
 
@@ -45,7 +52,9 @@ function PlaceOrder(props) {
     const { errors } = formState;
 
     function onSubmit(data) {
-        makeSale(user.id, data);
+        console.log(data);
+        sale = setSale(data);
+        makeSale(user.id, sale);
     }
 
     function makeSale(id, saleobj) {
@@ -71,7 +80,7 @@ function PlaceOrder(props) {
             <div className="form-row">
                 <div className="form-group col">
                     <label>Gallons</label>
-                    <input name="Gallons" type="text" {...register('Gallons')} className={`form-control ${errors.Gallons ? 'is-invalid' : ''}`} />
+                    <input name="Gallons" type="text"  {...register('Gallons')} className={`form-control ${errors.Gallons ? 'is-invalid' : ''}`} />
                     <div className="invalid-feedback">{errors.Gallons?.message}</div>
                 </div>
             </div>
@@ -81,7 +90,7 @@ function PlaceOrder(props) {
             <div className="form-row"> 
                 <div className="form-group col">
                     <label>Unit Price</label>
-                    <input name="UnitPrice" type="text" {...register('UnitPrice')} className={`form-control ${errors.UnitPrice ? 'is-invalid' : ''}`} />
+                    <input name="UnitPrice" type="text" readOnly value={sale.UnitPrice} className={`form-control ${errors.UnitPrice ? 'is-invalid' : ''}`} />
                     <div className="invalid-feedback">{errors.UnitPrice?.message}</div>
                 </div>
             </div>
@@ -148,7 +157,12 @@ function PlaceOrder(props) {
             <div className="form-row">
                 <div className="form-group col">
                     <label>Total</label>
-                    <></>
+                    {/* <> need to display the total </> */}
+                    <div className="invalid-feedback">{errors.Total?.message}</div>
+                </div>
+                <div className="form-group col">
+                    <label>Quote</label>
+                    {/* <> need to display the Quote </> */}
                     <div className="invalid-feedback">{errors.Total?.message}</div>
                 </div>
             </div>
@@ -162,7 +176,7 @@ function PlaceOrder(props) {
                     Save
                 </button>
                 <button onClick={() => reset(formOptions.defaultValues)} type="button" disabled={formState.isSubmitting} className="btn btn-secondary">Reset</button>
-                <Link href="/users" className="btn btn-link">Cancel</Link>
+                <Link href="/Order" className="btn btn-link">Cancel</Link>
             </div>
         </form>
     );

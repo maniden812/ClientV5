@@ -25,8 +25,6 @@ function Order() {
                         <th style={{ width: '20%' }}>Date</th>
                         <th style={{ width: '10%' }}>Price per Gallon</th>
                         <th style={{ width: '20%' }}>Total</th>
-                        {/* <th style={{ width: '10%' }}>&nbsp;</th> */}
-                        {/* <th style={{ width: '10%' }}></th> */}
                     </tr>
                 </thead>
                 <tbody>

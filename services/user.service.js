@@ -68,21 +68,24 @@ function update(id, params) {
 }
 //function that will append sales object into the user.sales array
 
-// function updatesales(id, params) {
-//     return fetchWrapper.put(`${baseUrl}/${id}`, params)
-//         .then(x => {
-//             // update stored user if the logged in user updated their own record
-//             if (id === userSubject.value.id) {
-//                 // update local storage
-//                 const user = { ...userSubject.sales, ...params };
-//                 localStorage.setItem('user', JSON.stringify(user));
-
-//                 // publish updated user to subscribers
-//                 userSubject.next(user);
-//             }
-//             return x;
-//         });
+// function updatesales(sale) {
+//     const user = JSON.parse(localStorage.getItem('user'));
+//     user.sales.push(sale);
+//     localStorage.setItem('user', JSON.stringify(user));
 // }
+
+function updatesales(id, params) {
+    return fetchWrapper.put(`${baseUrl}/${id}`, params)
+        .then(x => {
+            const user = { ...userSubject.value, ...params };
+            user.sales.append(params);
+
+                // publish updated user to subscribers
+            userSubject.next(user);
+            user.sales.push(params);
+            return x;
+        });
+}
 
 // prefixed with underscored because delete is a reserved word in javascript
 function _delete(id) {
